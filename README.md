@@ -87,7 +87,6 @@ Golf_tracker/
 
 1. Upload a golf swing video (MP4 format recommended)
 2. Adjust parameters:
-   - Object Label: "Ball" (default)
    - Output FPS: 15 (balance quality/speed)
    - Motion Sensitivity: 0.01 (lower = more sensitive)
 3. Click Process Video
