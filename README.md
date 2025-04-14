@@ -3,16 +3,19 @@
 ![image](https://github.com/user-attachments/assets/246a3819-00bc-482e-9b7c-216a15a27b9a)
 
 Track golf balls in swing videos with AI-powered object detection and motion analysis. Features real-time processing, adjustable sensitivity, and visual trail effects.
+# 🏉️ Golf Ball Tracker with VisionAgent
 
-![Demo GIF](https://example.com/path/to/your/demo.gif) *(Replace with actual demo image)*
+Track golf balls in swing videos with AI-powered object detection and motion analysis. Features real-time processing, adjustable sensitivity, and visual trail effects.
+
+![Demo Screenshot](https://raw.githubusercontent.com/jimlovesgit/Golf_tracker/main/Tiger.mp4) <!-- Replace or update with a proper demo GIF or video preview if needed -->
 
 ## 🚀 Quick Start
 
 ### ✅ 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/golf-ball-tracker.git
-cd golf-ball-tracker
+git clone https://github.com/jimlovesgit/Golf_tracker.git
+cd Golf_tracker
 ```
 
 ### ✅ 2. Run the Setup Script
@@ -41,7 +44,7 @@ This will:
 
 ### 📏 Windows (Recommended)
 
-Double-click `launch_app.bat`
+Double-click `golf_tracker.bat`
 
 > *(Create shortcut on desktop for easy access)*
 
@@ -72,13 +75,15 @@ Get your API key: https://va.landing.ai/settings/api-key
 ### File Structure
 
 ```text
-golf-ball-tracker/
-├── app.py               # Main application
-├── setup.py             # Installation script
-├── launch_app.bat       # Windows launcher
-├── launch_app.sh        # macOS/Linux launcher
-├── .env                 # API configuration
-├── requirements.txt     # Dependencies
+Golf_tracker/
+├── Golf_tracker.py       # Main application
+├── setup.py              # Installation script
+├── golf_tracker.bat      # Windows launcher
+├── launch_app.sh         # macOS/Linux launcher
+├── Tiger.mp4             # Sample input video
+├── requirements.txt      # Dependencies
+├── LICENSE               # MIT License
+├── licensee.md           # License explanation (if separate)
 └── README.md
 ```
 
@@ -92,7 +97,7 @@ golf-ball-tracker/
 3. Click Process Video
 4. View/download the annotated result
 
-> *(Interface Preview - Add actual screenshot)*
+> *(Interface Preview - Add actual screenshot if available)*
 
 ## 💡 Tips
 
@@ -122,4 +127,5 @@ golf-ball-tracker/
 MIT License - Not affiliated with VisionAgent/Landing AI
 
 > Note: This app processes videos locally - your data never leaves your machine except for API calls to VisionAgent's services.
+
 
