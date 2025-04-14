@@ -1,6 +1,6 @@
 # 🏉️ Golf Ball Tracker with VisionAgent
 
-![image](https://github.com/user-attachments/assets/f45ec0d1-c24d-4ad2-a4d7-ae7c2fc49db3)
+![image](https://github.com/user-attachments/assets/df49a632-2899-4f65-b493-7351f3585a38)
 
 
 Track golf balls in swing videos with AI-powered object detection and motion analysis. Features real-time processing, adjustable sensitivity, and visual trail effects.
