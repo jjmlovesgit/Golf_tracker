@@ -49,8 +49,8 @@ def filter_moving_objects(tracks, confidence_thresh, move_thresh):
 
     return filtered_tracks
 
-def process_video(uploaded_video_file, object_label="", output_fps=15,
-                 movement_thresh=0.01, confidence_thresh=0.8, show_trace=True, trace_tail_len=25):
+def process_video(uploaded_video_file, output_fps=15,
+                 movement_thresh=0.01, confidence_thresh=0.8, trace_tail_len=25):
     flags = [False] * 5
     video = None
 
@@ -60,12 +60,9 @@ def process_video(uploaded_video_file, object_label="", output_fps=15,
             yield video, *flags
             return
 
-        if not object_label.strip():
-            print("❌ No object label provided.")
-            yield video, *flags
-            return
+        object_label = "Ball"
+        show_trace = True
 
-        # Verify API key is available during processing
         if not VISION_AGENT_API_KEY:
             raise ValueError("VisionAgent API key not available during processing")
 
@@ -107,7 +104,7 @@ def process_video(uploaded_video_file, object_label="", output_fps=15,
                 trace_overlay = annotated_frame.copy()
                 trace_points = np.array(ball_trace[-trace_tail_len:], dtype=np.int32)
                 alphas = np.exp(-0.2 * np.arange(trace_tail_len, 0, -1))
-                
+
                 for i, (x, y) in enumerate(trace_points):
                     circle_overlay = trace_overlay.copy()
                     cv2.circle(circle_overlay, (x, y), 4, (255, 165, 0), -1)
@@ -159,8 +156,6 @@ with gr.Blocks(title="Golf Ball Tracker") as demo:
             submit_btn = gr.Button("Process Video")
 
             with gr.Accordion(label="⚙️ Advanced Settings", open=False):
-                object_label = gr.Textbox(label="Object Label", value="Ball")
-
                 with gr.Row():
                     with gr.Column():
                         fps_slider = gr.Slider(minimum=1, maximum=30, value=15, label="Output FPS")
@@ -186,8 +181,6 @@ with gr.Blocks(title="Golf Ball Tracker") as demo:
                             step=1,
                             label="Trace Tail Length"
                         )
-
-                trace_checkbox = gr.Checkbox(label="Show Ball Trace Line", value=True)
 
         with gr.Column():
             video_output = gr.Video(label="Processed Output")
@@ -216,11 +209,9 @@ with gr.Blocks(title="Golf Ball Tracker") as demo:
         fn=process_video,
         inputs=[
             video_input,
-            object_label,
             fps_slider,
             movement_thresh_slider,
             confidence_thresh_slider,
-            trace_checkbox,
             trace_tail_slider
         ],
         outputs=[
@@ -241,4 +232,7 @@ if __name__ == "__main__":
     except ConnectionResetError:
         print("⚠️ Connection was reset by browser, safe to ignore.")
     except Exception as e:
+        print(f"❌ An error occurred: {e}")
+
+
         print(f"❌ An error occurred: {e}")
