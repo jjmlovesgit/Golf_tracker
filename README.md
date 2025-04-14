@@ -2,6 +2,7 @@
 
 ![image](https://github.com/user-attachments/assets/df49a632-2899-4f65-b493-7351f3585a38)
 
+![image](https://github.com/user-attachments/assets/a9244451-d1b4-44e2-a648-174dd414975a)
 
 Track golf balls in swing videos with AI-powered object detection and motion analysis. Features real-time processing, adjustable sensitivity, and visual trail effects.
 
