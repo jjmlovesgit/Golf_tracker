@@ -92,8 +92,6 @@ Golf_tracker/
 3. Click Process Video
 4. View/download the annotated result
 
-> *(Interface Preview - Add actual screenshot if available)*
-
 ## 💡 Tips
 
 - For best results, use videos with:
