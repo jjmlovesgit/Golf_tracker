@@ -10,7 +10,7 @@ Track golf balls in swing videos with AI-powered object detection and motion ana
 ### ✅ 1. Clone the Repository
 
 ```bash
-git clone https://github.com/jimlovesgit/Golf_tracker.git
+git clone https://github.com/jjmlovesgit/Golf_tracker.git
 cd Golf_tracker
 ```
 
