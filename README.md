@@ -1,6 +1,7 @@
 # 🏉️ Golf Ball Tracker with VisionAgent
 
-![image](https://github.com/user-attachments/assets/246a3819-00bc-482e-9b7c-216a15a27b9a)
+![image](https://github.com/user-attachments/assets/54b3a223-9484-4997-af9c-8e95798901e6)
+
 
 Track golf balls in swing videos with AI-powered object detection and motion analysis. Features real-time processing, adjustable sensitivity, and visual trail effects.
 
@@ -91,8 +92,7 @@ Golf_tracker/
    - Motion Sensitivity: 0.01 (lower = more sensitive)
 3. Click Process Video
 4. View/download the annotated result
-![image](https://github.com/user-attachments/assets/0d53db9b-6620-46d6-9df9-72e14580b881)
-
+   
 ## 💡 Tips
 
 - For best results, use videos with:
