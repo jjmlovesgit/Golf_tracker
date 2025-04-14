@@ -1,4 +1,4 @@
-# 🏉️ Golf Ball Tracker with VisionAgent "Tiny Experiment"
+# ⛳ Golf Ball Tracker with VisionAgent "Tiny Experiment"
 
 ![image](https://github.com/user-attachments/assets/df49a632-2899-4f65-b493-7351f3585a38)
 
