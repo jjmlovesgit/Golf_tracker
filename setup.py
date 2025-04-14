@@ -51,7 +51,7 @@ def create_launchers():
     with open("launch_app.bat", "w") as f:
         f.write("""@echo off
 call venv\\Scripts\\activate
-python app.py
+python golf_tracker.py
 pause
 """)
     
@@ -59,7 +59,7 @@ pause
     with open("launch_app.sh", "w") as f:
         f.write("""#!/bin/bash
 source venv/bin/activate
-python app.py
+python golf_tracker.pyp.py
 """)
     
     os.chmod("launch_app.sh", 0o755)  # Make executable
