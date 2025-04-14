@@ -91,6 +91,7 @@ Golf_tracker/
    - Motion Sensitivity: 0.01 (lower = more sensitive)
 3. Click Process Video
 4. View/download the annotated result
+![image](https://github.com/user-attachments/assets/0d53db9b-6620-46d6-9df9-72e14580b881)
 
 ## 💡 Tips
 
