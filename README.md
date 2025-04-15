@@ -25,7 +25,7 @@ This will:
 
 - Create a Python virtual environment
 - Install all dependencies
-- Configure your VisionAgent API key
+- Configure your VisionAgent API key https://va.landing.ai/settings/api-key
 - Generate easy-launch scripts
 
 ## 🎯 Features
