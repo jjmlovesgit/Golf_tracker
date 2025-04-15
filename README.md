@@ -120,6 +120,5 @@ Golf_tracker/
 
 MIT License - Not affiliated with VisionAgent/Landing AI
 
-> Note: This app processes videos locally - your data never leaves your machine except for API calls to VisionAgent's services.
 
 
