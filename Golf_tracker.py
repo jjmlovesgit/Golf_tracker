@@ -1,9 +1,9 @@
-import os
-from dotenv import load_dotenv  # Load .env files
+import os                       # Interact with OS etc
+from dotenv import load_dotenv  # Load .env files for Key mgmt
 import cv2                      # OpenCV for image and video processing & drawing
 import numpy as np              # NumPy for math and array handling pixel arrays
 import gradio as gr             # Gradio for UI
-import vision_agent.tools as T  # VisionAgent SDK for AI-based object tracking
+import vision_agent.tools as T  # VisionAgent SDK for detection, classification, segmentation etc.
 import logging                  # Logging 
 
 # ====================================
@@ -19,7 +19,7 @@ if not VISION_AGENT_API_KEY:
         "Then set it in a .env file or as an environment variable."
     )
 
-# Suppress irrelevant asyncio warnings on Windows 
+# Suppress noisy asyncio warnings on Windows 
 logging.getLogger("asyncio").setLevel(logging.CRITICAL)
 
 # ============================
@@ -46,11 +46,11 @@ def filter_moving_objects(tracks, confidence_thresh, move_thresh):
             center = ((xmin + xmax) / 2, (ymin + ymax) / 2)
             label = det["label"]
             moved = True
-            # Checks for static objects – do not track static ones 
+            # Checks for static objects 
             if label in previous_positions:
                 if calculate_distance(center, previous_positions[label]) < move_thresh:
                     moved = False
-            # If it has moved – track it
+            # If it has moved – we track it
             if moved:
                 previous_positions[label] = center
                 current_frame_detections.append(det)
@@ -62,7 +62,7 @@ def filter_moving_objects(tracks, confidence_thresh, move_thresh):
 # ===================================================
 # 🎥 Main Processing Function Orchestration for our video
 # 1. Extracts frames from the input video
-# 2. Tracks objects across frames using LandingAI's vision agent tools
+# 2. Tracks objects across frames using the vision agent tools
 # 3. Filters noisy or non-moving detections
 # 4. Annotates movement with a fading trace line
 # 5. Saves the final annotated video
@@ -150,7 +150,7 @@ def process_video(uploaded_video_file, output_fps=15,
                 # Create alpha values that fade older points (math for exponential decay)
                 alphas = np.exp(-0.2 * np.arange(trace_tail_len, 0, -1))
 
-                # Draw each trace point as a fading circle using an alpha value with OpenCV
+                # layer the trace points as a fading circle using an alpha value with OpenCV
                 for i, (x, y) in enumerate(trace_points):
                     circle_overlay = trace_overlay.copy()
                     cv2.circle(circle_overlay, (x, y), 4, (255, 165, 0), -1)  # Orange circle
@@ -297,8 +297,4 @@ if __name__ == "__main__":
     except ConnectionResetError:
         print("⚠️ Connection was reset by browser, safe to ignore.")
     except Exception as e:
-        print(f"❌ An error occurred: {e}")
-
-
-
         print(f"❌ An error occurred: {e}")
