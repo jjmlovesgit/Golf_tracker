@@ -1,4 +1,4 @@
-iimport os
+import os
 from dotenv import load_dotenv  # Load .env files
 import cv2                      # OpenCV for image and video processing & drawing
 import numpy as np              # NumPy for math and array handling pixel arrays
