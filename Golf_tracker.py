@@ -3,7 +3,7 @@ from dotenv import load_dotenv  # Load .env files for Key mgmt
 import cv2                      # OpenCV for image and video processing & drawing
 import numpy as np              # NumPy for math and array handling pixel arrays
 import gradio as gr             # Gradio for UI
-import vision_agent.tools as T  # VisionAgent SDK for detection, classification, segmentation etc.
+import vision_agent.tools as T  # VisionAgent SDK for detection, classification, segmentation, anomaly detection etc.
 import logging                  # Logging 
 
 # ====================================
@@ -101,7 +101,7 @@ def process_video(uploaded_video_file, output_fps=15,
         # ============================================================
         frames_and_ts = T.extract_frames_and_timestamps(input_path, fps=output_fps)
         frames = [f["frame"] for f in frames_and_ts]
-        if not frames:
+        if not frames: 
             print("❌ No frames extracted!")
             yield video, *flags
             return
@@ -128,46 +128,46 @@ def process_video(uploaded_video_file, output_fps=15,
         # 🖍️ Step 4: Annotate each frame
         # Draw the object's movement as a trace line using fading alpha
         # ============================================================
-        annotated_frames = []
-        ball_trace = []  # Stores center points for the trace path
+        annotated_frames = [] # Empty list for trace frames
+        ball_trace = []  # Empty list to store history of Ball center points for the trace path in frames (Path for trace)
 
         # Focus on the moving detections; make a copy for annotation with the trace...
-        for frame, detections in zip(frames, filtered_tracks):
+        for frame, detections in zip(frames, filtered_tracks): #loop frame by frame
             annotated_frame = frame.copy()
 
-            # For each detection, compute the center point and add coordinates to trace list 
+            # For each moving "Ball" on the frame detection, compute the center point and add coordinates to trace list 
             for det in detections:
                 xmin, ymin, xmax, ymax = det["bbox"]
-                center_x = int((xmin + xmax) / 2 * frame.shape[1])
-                center_y = int((ymin + ymax) / 2 * frame.shape[0])
-                ball_trace.append((center_x, center_y))
+                center_x = int((xmin + xmax) / 2 * frame.shape[1]) #convert back to pixel positions
+                center_y = int((ymin + ymax) / 2 * frame.shape[0]) #convert back to pixel positions
+                ball_trace.append((center_x, center_y)) #add center point X,Y to ball_trace list
 
-            # If we have more than one trace point, draw fading trail using exponential alpha fade
+            # If we have more than one trace point, draw fading trail using exponential fade of the ball (alpha)
             if show_trace and len(ball_trace) > 1:
                 trace_overlay = annotated_frame.copy()
-                trace_points = np.array(ball_trace[-trace_tail_len:], dtype=np.int32)
+                trace_points = np.array(ball_trace[-trace_tail_len:], dtype=np.int32) #Tail length from UI
 
-                # Create alpha values that fade older points (math for exponential decay)
+                # Create alpha values that fade older points (math for exponential decay to drive color intensity/transparency)
                 alphas = np.exp(-0.2 * np.arange(trace_tail_len, 0, -1))
 
-                # layer the trace points as a fading circle using an alpha value with OpenCV
+                # layer the trace points as a small orange fading circles to represent the ball (OpenCV)
                 for i, (x, y) in enumerate(trace_points):
                     circle_overlay = trace_overlay.copy()
-                    cv2.circle(circle_overlay, (x, y), 4, (255, 165, 0), -1)  # Orange circle
-                    cv2.addWeighted(circle_overlay, alphas[i], trace_overlay, 1 - alphas[i], 0, trace_overlay)
+                    cv2.circle(circle_overlay, (x, y), 4, (255, 165, 0), -1)  # fading orange circles are layered on frame
+                    cv2.addWeighted(circle_overlay, alphas[i], trace_overlay, 1 - alphas[i], 0, trace_overlay) #blend circles on org frame
 
-                # Use overlay with fading circles as the final annotated frame
-                annotated_frame = trace_overlay
+                # Use overlay with fading circles as the final annotated frame during reassembly
+                annotated_frame = trace_overlay 
 
             # Add finished frame to the list
-            annotated_frames.append(annotated_frame)
+            annotated_frames.append(annotated_frame)  # we are ready to assemble final .mp4
 
         flags[3] = True
         yield video, *flags  # Update IU: Frame annotation complete
 
         # ============================================================
         # 💾 Step 5: Save the final annotated video
-        # Write frames to an mp4 video using the VisionAgent helper
+        # Write frames to an mp4 video using the VisionAgent helper at FPS from UI
         # ============================================================
         T.save_video(annotated_frames, output_path, fps=output_fps)
         video = output_path
@@ -298,3 +298,4 @@ if __name__ == "__main__":
         print("⚠️ Connection was reset by browser, safe to ignore.")
     except Exception as e:
         print(f"❌ An error occurred: {e}")
+
